@@ -41,6 +41,17 @@ public class FirebasePhotoListAdapter extends FirebaseRecyclerAdapter<Interestin
         return new FirebasePhotoViewHolder(view);
     }
 
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition){
+        return false;
+    }
+
+    @Override
+    public void onItemDismiss(int position){
+
+    }
+
+
 
 
 }

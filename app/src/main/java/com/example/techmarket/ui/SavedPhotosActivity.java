@@ -88,13 +88,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.techmarket.Constants;
 import com.example.techmarket.R;
+import com.example.techmarket.adapters.FirebasePhotoListAdapter;
 import com.example.techmarket.adapters.FirebasePhotoViewHolder;
 import com.example.techmarket.models.InterestingPhoto;
+import com.example.techmarket.utils.OnStartDragListener;
+import com.example.techmarket.utils.SimpleItemTouchHelperCallback;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.Task;
@@ -109,7 +113,9 @@ import butterknife.ButterKnife;
 
 public class SavedPhotosActivity extends AppCompatActivity {
     private DatabaseReference mPhotoReference;
-    private FirebaseRecyclerAdapter<InterestingPhoto, FirebasePhotoViewHolder> mFirebaseAdapter;
+private FirebasePhotoListAdapter mFirebaseAdapter;
+    private ItemTouchHelper mItemTouchHelper;
+    //    private FirebaseRecyclerAdapter<InterestingPhoto, FirebasePhotoViewHolder> mFirebaseAdapter;
 //    @BindView(R.id.firebaseProgressBar) ProgressBar interestingPhotoProgressBar;
     @BindView(R.id.recycler2)
     RecyclerView mRecyclerView;
@@ -126,41 +132,31 @@ public class SavedPhotosActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         showProgressBar();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-
-        mPhotoReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_PHOTOS).child(uid);
-        setUpFirebaseAdapter();
+         setUpFirebaseAdapter();
 
         showRestaurants();
     }
 
     private void setUpFirebaseAdapter(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        mPhotoReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_PHOTOS).child(uid);
 
         FirebaseRecyclerOptions<InterestingPhoto> options =
                 new FirebaseRecyclerOptions.Builder<InterestingPhoto>()
                         .setQuery(mPhotoReference, InterestingPhoto.class)
                         .build();
 
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<InterestingPhoto, FirebasePhotoViewHolder>(options) {
+        mFirebaseAdapter = new FirebasePhotoListAdapter(options, mPhotoReference, (OnStartDragListener) this, this);
 
-            @Override
-            protected void onBindViewHolder(@NonNull FirebasePhotoViewHolder firebaseRestaurantViewHolder, int position, @NonNull InterestingPhoto photo) {
-                firebaseRestaurantViewHolder.bindPhoto(photo);
-                hideProgressBar();
-            }
-
-            @NonNull
-            @Override
-            public FirebasePhotoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_saved_photos, parent, false);
-                return new FirebasePhotoViewHolder(view);
-            }
-
-        };
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mFirebaseAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     @Override

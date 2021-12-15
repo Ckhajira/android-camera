@@ -13,7 +13,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         >
 
         <ImageView
@@ -21,6 +20,14 @@
             android:layout_height="250dp"
             android:id="@+id/imgPhoto"
             android:src="@mipmap/ic_launcher" />
+        <ImageView
+        android:id="@+id/dragIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@id/imgPhoto"
+        android:layout_alignBottom="@id/imgPhoto"
+        android:gravity="bottom|left"
+        android:src="@drawable/baseline_reorder_black_18dp"/>
 
         <TextView
             android:layout_width="wrap_content"

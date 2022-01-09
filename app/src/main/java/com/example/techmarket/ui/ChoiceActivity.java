@@ -20,6 +20,7 @@ public class ChoiceActivity extends AppCompatActivity {
         @BindView(R.id.marketPlaceBtnView) Button marketPlaceBtn;
     @BindView(R.id.FlickrBtnView) Button flickrBtn;
     @BindView(R.id.SavedPhotosBtnView) Button SavedPhotosBtn;
+    @BindView(R.id.cameraBtnView) Button cameraBtnView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,13 @@ public class ChoiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ChoiceActivity.this, SavedPhotosActivity.class );
+                startActivity(intent);
+            }
+        });
+        cameraBtnView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChoiceActivity.this, CameraActivity.class);
                 startActivity(intent);
             }
         });

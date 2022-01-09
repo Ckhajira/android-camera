@@ -132,12 +132,12 @@ public class CameraActivity extends AppCompatActivity {
                         Picasso.get().load(uri).into(selectedImage);
                     }
                 });
-                Toast.makeText(MainActivity.this,"Image is uploaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CameraActivity.this,"Image is uploaded", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this,"Upload Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CameraActivity.this,"Upload Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

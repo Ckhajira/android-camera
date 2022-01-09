@@ -20,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.techmarket.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -111,6 +114,27 @@ public class CameraActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode,resultCode,data);
+    }
+
+    private void uploadImageToFirebase(String name, Uri contentUri) {
+        StorageReference image = storageReference.child("images/" + name);
+        image.putFile(contentUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(selectedImage);
+                    }
+                });
+                Toast.makeText(MainActivity.this,"Image is uploaded", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MainActivity.this,"Upload Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

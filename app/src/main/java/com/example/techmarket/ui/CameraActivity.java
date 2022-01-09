@@ -1,5 +1,6 @@
 package com.example.techmarket.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -12,6 +13,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.techmarket.R;
 
@@ -57,6 +59,21 @@ public class CameraActivity extends AppCompatActivity {
             dispatchTakePictureIntent();
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERM_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //openCamera();
+                dispatchTakePictureIntent();
+            } else {
+                Toast.makeText(this, "Camera Permission is Required to use Camera.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
 
 
 

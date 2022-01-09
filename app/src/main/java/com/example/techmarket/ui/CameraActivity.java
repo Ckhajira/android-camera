@@ -1,8 +1,12 @@
 package com.example.techmarket.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -44,4 +48,16 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void askCameraPermissions() {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA},CAMERA_PERM_CODE);
+        }else {
+//           openCamera();
+            dispatchTakePictureIntent();
+        }
+    }
+
+
+
 }

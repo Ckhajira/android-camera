@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.techmarket.R;
 
-public class Camera extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_all_products.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_buy_form.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_camera.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_choice.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_create_account.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_interesting_photos.xml" value="0.15" />

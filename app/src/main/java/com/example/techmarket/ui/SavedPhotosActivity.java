@@ -79,6 +79,8 @@
 ////    }
 //}
 package com.example.techmarket.ui;
+//import static com.example.techmarket.adapters.FirebasePhotoListAdapter.mOnStartDragListener;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,7 +94,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.techmarket.Constants;
+import com.example.techmarket.adapters.FirebasePhotoListAdapter.*;
 import com.example.techmarket.R;
 import com.example.techmarket.adapters.FirebasePhotoListAdapter;
 import com.example.techmarket.adapters.FirebasePhotoViewHolder;
@@ -108,6 +112,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -115,6 +120,7 @@ public class SavedPhotosActivity extends AppCompatActivity {
     private DatabaseReference mPhotoReference;
 private FirebasePhotoListAdapter mFirebaseAdapter;
     private ItemTouchHelper mItemTouchHelper;
+    private OnStartDragListener mDragReference;
     //    private FirebaseRecyclerAdapter<InterestingPhoto, FirebasePhotoViewHolder> mFirebaseAdapter;
 //    @BindView(R.id.firebaseProgressBar) ProgressBar interestingPhotoProgressBar;
     @BindView(R.id.recycler2)
@@ -141,6 +147,7 @@ private FirebasePhotoListAdapter mFirebaseAdapter;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
+
         mPhotoReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_PHOTOS).child(uid);
 
         FirebaseRecyclerOptions<InterestingPhoto> options =
@@ -148,7 +155,7 @@ private FirebasePhotoListAdapter mFirebaseAdapter;
                         .setQuery(mPhotoReference, InterestingPhoto.class)
                         .build();
 
-        mFirebaseAdapter = new FirebasePhotoListAdapter(options, mPhotoReference, (OnStartDragListener) this, this);
+        mFirebaseAdapter = new FirebasePhotoListAdapter(options, mPhotoReference, (OnStartDragListener) this , this);
 
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

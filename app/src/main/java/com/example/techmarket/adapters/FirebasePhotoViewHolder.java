@@ -193,7 +193,7 @@ import butterknife.BindView;
 //}
 //
 public class FirebasePhotoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+    public ImageView photoImageView;
     View mView;
     Context mContext;
 
@@ -205,7 +205,7 @@ public class FirebasePhotoViewHolder extends RecyclerView.ViewHolder implements 
     }
 
     public void bindPhoto(InterestingPhoto photo) {
-        ImageView photoImageView = (ImageView) mView.findViewById(R.id.imgPhoto);
+        photoImageView = (ImageView) mView.findViewById(R.id.imgPhoto);
         TextView titleTextView = (TextView) mView.findViewById(R.id.title);
         TextView dateTextView = (TextView) mView.findViewById(R.id.date);
       //  TextView urlTextView = (TextView) mView.findViewById(R.id.url);

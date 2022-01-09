@@ -2,6 +2,7 @@ package com.example.techmarket.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -30,8 +31,17 @@ public class FirebasePhotoListAdapter extends FirebaseRecyclerAdapter<Interestin
         mContext = context;
     }
     @Override
-    protected void onBindViewHolder(@NonNull FirebasePhotoViewHolder firebaseRestaurantViewHolder, int position, @NonNull InterestingPhoto photo) {
-        firebaseRestaurantViewHolder.bindPhoto(photo);
+    protected void onBindViewHolder(@NonNull FirebasePhotoViewHolder firebasePhotoViewHolder, int position, @NonNull InterestingPhoto photo) {
+        firebasePhotoViewHolder.bindPhoto(photo);
+        firebasePhotoViewHolder.photoImageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    mOnStartDragListener.onStartDrag(firebasePhotoViewHolder);
+                }
+                return false;
+            }
+        });
     }
 
     @NonNull

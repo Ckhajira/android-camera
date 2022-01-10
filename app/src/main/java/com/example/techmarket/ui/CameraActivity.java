@@ -52,7 +52,7 @@ public class CameraActivity extends AppCompatActivity {
 
         selectedImage = findViewById(R.id.displayImageView);
         cameraBtn = findViewById(R.id.cameraBtn);
-        galleryBtn = findViewById(R.id.galleryBtn);
+//        galleryBtn = findViewById(R.id.galleryBtn);
 
         storageReference = FirebaseStorage.getInstance().getReference();
         cameraBtn.setOnClickListener(new View.OnClickListener() {
@@ -61,13 +61,13 @@ public class CameraActivity extends AppCompatActivity {
                 askCameraPermissions();
             }
         });
-        galleryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallery,GALLERY_REQUEST_CODE);
-            }
-        });
+//        galleryBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(gallery,GALLERY_REQUEST_CODE);
+//            }
+//        });
     }
 
     private void askCameraPermissions() {
